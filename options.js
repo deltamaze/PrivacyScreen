@@ -1,28 +1,42 @@
 // use storage
 let config;
 chrome.storage.sync.get(['targetType', 'siteWhiteList', 'siteBlackList'], function (items) {
-  console.log(items);
   config = items;
+  console.log(items);
   if (config === undefined) {
-    console.log("setting up new items object");
     config =
       {
-        targetType: ["WhiteList", "BlackList"],
+        targetType: "blacklist",
         siteWhiteList: ["google.com", "test.com"],
         siteBlackList: ["google.com", "test.com"]
       }
     chrome.storage.sync.set(config, function () {
-      console.log('Settings saved');
     });
   
   }
-  console.log(config);
+  updateSelectToSettings();
 });
 
+window.onload=function(){
+  const select = document.querySelector('#targetType');
+  select.addEventListener('change',function(){
+      config.targetType = select.options[select.selectedIndex].value;
+      save();
+  });
+}
 
 
+updateSelectToSettings = function() {
 
+  const select = document.querySelector('#targetType');
+  select.value = config.targetType;
 
+}
+
+save = function(){
+  chrome.storage.sync.set(config, function () {
+  });
+}
 
 //save button clicked, sync storage
 // Save it using the Chrome extension storage API.
