@@ -3,16 +3,22 @@
 let config;
 
 function updateSelectToSettings() {
-  const select = document.querySelector('#targetType');
-  select.value = config.targetType;
+  const selectTargetType = document.querySelector('#targetType');
+  const selectStatus = document.querySelector('#status');
+  selectTargetType.value = config.targetType;
+  selectStatus.value = config.status;
 }
 
-chrome.storage.sync.get(['targetType', 'siteWhiteList', 'siteBlackList'], (items) => {
+chrome.storage.sync.get(['status', 'targetType', 'siteWhiteList', 'siteBlackList'], (items) => {
   config = items;
-  // console.log(items);
-  if (config === undefined) {
+  if (config === undefined ||
+    config.status === undefined ||
+    config.targetType === undefined ||
+    config.siteWhiteList === undefined ||
+    config.siteBlackList === undefined) {
     config =
       {
+        status: 'on',
         targetType: 'blacklist',
         siteWhiteList: ['google.com', 'test.com'],
         siteBlackList: ['google.com', 'test.com'],
@@ -29,9 +35,15 @@ function save() {
 }
 
 window.onload = () => {
-  const select = document.querySelector('#targetType');
-  select.addEventListener('change', () => {
-    config.targetType = select.options[select.selectedIndex].value;
+  const selectTargetType = document.querySelector('#targetType');
+  selectTargetType.addEventListener('change', () => {
+    config.targetType = selectTargetType.options[selectTargetType.selectedIndex].value;
+    save();
+  });
+
+  const selectStatus = document.querySelector('#status');
+  selectStatus.addEventListener('change', () => {
+    config.status = selectStatus.options[selectStatus.selectedIndex].value;
     save();
   });
 };

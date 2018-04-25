@@ -6,9 +6,33 @@
   </head>
   <body>
     <h1>Privacy Screen Options</h1>
+    <span>On/Off</span>
+    <select id="status">
+      <option value="on">On</option>
+      <option value="off">Off</option>
+    </select>
+    <br />
     <select id="targetType">
       <option value="blacklist">BlackList - Apply Screen to only sites on list</option>
       <option value="whitelist">WhiteList - Apply Screen to all sites except those on list</option>
     </select>
+    <br />
+    <form>
+      <label>Add New Site To List</label>
+      <input type="text" name="newSiteField" id="newSiteField">
+      <input type="submit" name="newSiteSubmit" id="newSiteSubmit">
+    </form>
   </body>
+  <table>
+  <tbody>
+    <tr>
+      <th>Site</th>
+      <th>Action</th>
+    </tr>
+    <tr id="siteList">
+        <td>[*].Slack.ComZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ</td>
+        <td><input type="button" value="Remove"></td>
+    </tr>
+    </tbody>
+  </table>
 </html>
