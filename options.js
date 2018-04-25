@@ -1,44 +1,43 @@
-// use storage
+/* global chrome document window  */
+
 let config;
-chrome.storage.sync.get(['targetType', 'siteWhiteList', 'siteBlackList'], function (items) {
+
+function updateSelectToSettings() {
+  const select = document.querySelector('#targetType');
+  select.value = config.targetType;
+}
+
+chrome.storage.sync.get(['targetType', 'siteWhiteList', 'siteBlackList'], (items) => {
   config = items;
-  console.log(items);
+  // console.log(items);
   if (config === undefined) {
     config =
       {
-        targetType: "blacklist",
-        siteWhiteList: ["google.com", "test.com"],
-        siteBlackList: ["google.com", "test.com"]
-      }
-    chrome.storage.sync.set(config, function () {
+        targetType: 'blacklist',
+        siteWhiteList: ['google.com', 'test.com'],
+        siteBlackList: ['google.com', 'test.com'],
+      };
+    chrome.storage.sync.set(config, () => {
     });
-  
   }
   updateSelectToSettings();
 });
 
-window.onload=function(){
-  const select = document.querySelector('#targetType');
-  select.addEventListener('change',function(){
-      config.targetType = select.options[select.selectedIndex].value;
-      save();
+function save() {
+  chrome.storage.sync.set(config, () => {
   });
 }
 
-
-updateSelectToSettings = function() {
-
+window.onload = () => {
   const select = document.querySelector('#targetType');
-  select.value = config.targetType;
-
-}
-
-save = function(){
-  chrome.storage.sync.set(config, function () {
+  select.addEventListener('change', () => {
+    config.targetType = select.options[select.selectedIndex].value;
+    save();
   });
-}
+};
 
-//save button clicked, sync storage
+
+// save button clicked, sync storage
 // Save it using the Chrome extension storage API.
 // chrome.storage.sync.set({'foo': 'hello', 'bar': 'hi'}, function() {
 //     console.log('Settings saved');
