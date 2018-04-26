@@ -2,11 +2,38 @@
 
 let config;
 
+function populateTable() {
+  let targetArray;
+  if (config.targetType === 'blacklist') {
+    targetArray = config.siteBlackList;
+  } else {
+    targetArray = config.siteWhiteList;
+  }
+  // clear table
+  document.getElementById('siteList').innerHTML = '';
+
+  const tableHeader = `<tr>
+                <th>Site</th>
+                <th>Action</th>
+              </tr>`;
+  let tableRows = '';
+
+  for (let i = 0; i < targetArray.length; i += 1) {
+    tableRows += `<tr>
+                      <td>[*].Slack.ComXXXX</td>
+                      <td><input type="button" value="Remove"></td>
+                  </tr>`;
+  }
+  document.getElementById('siteList').innerHTML = tableHeader + tableRows;
+}
+
 function updateSelectToSettings() {
   const selectTargetType = document.querySelector('#targetType');
   const selectStatus = document.querySelector('#status');
   selectTargetType.value = config.targetType;
   selectStatus.value = config.status;
+
+  populateTable();
 }
 
 chrome.storage.sync.get(['status', 'targetType', 'siteWhiteList', 'siteBlackList'], (items) => {
@@ -48,6 +75,14 @@ window.onload = () => {
   });
 };
 
+/* <tr>
+      <th>Site</th>
+      <th>Action</th>
+    </tr>
+    <tr>
+        <td>[*].Slack.ComZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ</td>
+        <td><input type="button" value="Remove"></td>
+    </tr> */
 
 // save button clicked, sync storage
 // Save it using the Chrome extension storage API.
