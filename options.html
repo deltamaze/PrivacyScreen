@@ -1,40 +1,47 @@
 <!doctype html>
 <html>
-  <head>
-    <title>PrivacyScreen</title>
-    <script src="options.js"></script>
-  </head>
-  <body>
-    <h1>Privacy Screen Options</h1>
-    <span>On/Off</span>
-    <select id="status">
-      <option value="on">On</option>
-      <option value="off">Off</option>
-    </select>
-    <br />
-    <select id="targetType">
-      <option value="blacklist">BlackList - Apply Screen to only sites on list</option>
-      <option value="whitelist">WhiteList - Apply Screen to all sites except those on list</option>
-    </select>
-    <br />
-    <br />
-    <br />
-    <form>
-      <label>Add New Site To List</label>
-      <input type="text" name="newSiteField" id="newSiteField">
-      <input type="submit" name="newSiteSubmit" id="newSiteSubmit">
-    </form>
-  </body>
+
+<head>
+  <title>PrivacyScreen</title>
+  <script src="options.js"></script>
+</head>
+
+<body>
+  <h1>Privacy Screen Options</h1>
+  <span>On/Off</span>
+  <select id="status">
+    <option value="on">On</option>
+    <option value="off">Off</option>
+  </select>
+  <br />
+  <select id="targetType">
+    <option value="blacklist">BlackList - Apply Screen to only sites on list</option>
+    <option value="whitelist">WhiteList - Apply Screen to all sites except those on list</option>
+  </select>
+  <br />
+  <br />
+  <br />
+  <form id="addSiteForm" >
+    <label>Add New Site To List</label>
+    <input type="text" name="newSiteField" id="newSiteField">
+    <input type="submit" name="newSiteSubmit" id="newSiteSubmit">
+  </form>
+  <br />
+  <br />
   <table>
-  <tbody id="siteList">
-    <tr>
-      <th>Site</th>
-      <th>Action</th>
-    </tr>
-    <tr>
+    <tbody id="siteList">
+      <tr>
+        <th>Site</th>
+        <th>Action</th>
+      </tr>
+      <tr>
         <td>[*].Slack.ComZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ</td>
-        <td><input type="button" value="Remove"></td>
-    </tr>
+        <td>
+          <input type="button" value="Remove">
+        </td>
+      </tr>
     </tbody>
   </table>
+</body>
+
 </html>
