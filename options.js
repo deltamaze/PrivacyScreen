@@ -30,7 +30,6 @@ function removeItemFromList(id) { // eslint-disable-line no-unused-vars
 
 function addToList() { // eslint-disable-line no-unused-vars
   const newSiteElement = document.getElementById('newSiteField');
-  console.log(newSiteElement);
   if (config.targetType === 'blacklist') {
     config.siteBlackList.push(newSiteElement.value);
   } else {
@@ -39,7 +38,6 @@ function addToList() { // eslint-disable-line no-unused-vars
   newSiteElement.value = '';
   save();
   populateTable();// eslint-disable-line no-use-before-define
-  console.log('test');
 }
 
 function populateTable() {
