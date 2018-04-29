@@ -103,8 +103,8 @@ chrome.storage.sync.get(['status', 'targetType', 'siteWhiteList', 'siteBlackList
       {
         status: 'on',
         targetType: 'blacklist',
-        siteWhiteList: ['google.com', 'test.com'],
-        siteBlackList: ['google.com', 'test.com'],
+        siteWhiteList: ['TestWebsite.com'],
+        siteBlackList: ['TestWebsite.com'],
       };
     chrome.storage.sync.set(config, () => {
     });
