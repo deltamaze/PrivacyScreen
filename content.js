@@ -23,18 +23,15 @@ chrome.storage.sync.get(['status', 'targetType', 'siteWhiteList', 'siteBlackList
 });
 
 $(document).mouseenter(() => {
-  console.log('in');
   // console.log(window.location.toString());
   body[0].style.display = null;
 });
 
 $(document).mouseleave(() => {
-  console.log('out');
   // if status is on
   if (config.status === 'on') {
     let blackListFlagMatch = false;
     let whiteListFlagMatch = false;
-    console.log(config.siteBlackList);
     config.siteBlackList.forEach((site) => {
       if (window.location.toString().includes(site)) {
         blackListFlagMatch = true;

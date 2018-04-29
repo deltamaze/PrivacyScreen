@@ -1,36 +1,41 @@
-/* global document chrome */
-// let config;
-// chrome.storage.sync.get(['status', 'targetType', 'siteWhiteList', 'siteBlackList'], (items) => {
-//   config = items;
-//   if (config === undefined ||
-//     config.status === undefined ||
-//     config.targetType === undefined ||
-//     config.siteWhiteList === undefined ||
-//     config.siteBlackList === undefined) {
-//     config =
-//       {
-//         status: 'off',
-//         targetType: 'blacklist',
-//         siteWhiteList: [],
-//         siteBlackList: [],
-//       };
-//     chrome.storage.sync.set(config, () => {
-//     });
-//   }
-//   updateSelectToSettings();
-// });
+/* global document chrome window */
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   const toggleSwitch = document.getElementById('toggleSwitch');
-//   toggleSwitch.addEventListener('click', () => {
-//     chrome.tabs.getSelected(null, (tab) => {
-//       const d = document;
-//       // just update ext settings for on/off status
-//       // if tab is in target list, mouse is not on screen/window is not active, then black out
-//       console.log(d);
-//       console.log(tab);
+let config;
 
+function save() {
+  chrome.storage.sync.set(config, () => {
+  });
+}
 
-//     });
-//   }, false);
-// }, false);
+function updateSelectToSettings() {
+  const selectStatus = document.querySelector('#status');
+  selectStatus.value = config.status;
+}
+
+chrome.storage.sync.get(['status', 'targetType', 'siteWhiteList', 'siteBlackList'], (items) => {
+  config = items;
+  if (config === undefined ||
+    config.status === undefined ||
+    config.targetType === undefined ||
+    config.siteWhiteList === undefined ||
+    config.siteBlackList === undefined) {
+    config =
+      {
+        status: 'off',
+        targetType: 'blacklist',
+        siteWhiteList: [],
+        siteBlackList: [],
+      };
+    chrome.storage.sync.set(config, () => {
+    });
+  }
+  updateSelectToSettings();
+});
+
+window.onload = () => {
+  const selectStatus = document.querySelector('#status');
+  selectStatus.addEventListener('change', () => {
+    config.status = selectStatus.options[selectStatus.selectedIndex].value;
+    save();
+  });
+};
