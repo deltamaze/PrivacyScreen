@@ -92,25 +92,28 @@ function updateSelectToSettings() {
   populateTable();
 }
 
-chrome.storage.sync.get(['status', 'targetType', 'siteWhiteList', 'siteBlackList'], (items) => {
-  config = items;
-  if (config === undefined ||
-    config.status === undefined ||
-    config.targetType === undefined ||
-    config.siteWhiteList === undefined ||
-    config.siteBlackList === undefined) {
-    config =
-      {
-        status: 'on',
-        targetType: 'blacklist',
-        siteWhiteList: ['TestWebsite.com'],
-        siteBlackList: ['TestWebsite.com'],
-      };
-    chrome.storage.sync.set(config, () => {
-    });
-  }
-  updateSelectToSettings();
-});
+function getChromeStorageData() {
+  chrome.storage.sync.get(['status', 'targetType', 'siteWhiteList', 'siteBlackList'], (items) => {
+    config = items;
+    if (config === undefined ||
+      config.status === undefined ||
+      config.targetType === undefined ||
+      config.siteWhiteList === undefined ||
+      config.siteBlackList === undefined) {
+      config =
+        {
+          status: 'off',
+          targetType: 'blacklist',
+          siteWhiteList: ['TestWebsite.com'],
+          siteBlackList: ['TestWebsite.com'],
+        };
+      chrome.storage.sync.set(config, () => {
+      });
+    }
+    updateSelectToSettings();
+  });
+}
+getChromeStorageData(); // call once on js load
 
 window.onload = () => {
   const selectTargetType = document.querySelector('#targetType');
@@ -128,22 +131,6 @@ window.onload = () => {
   });
 };
 
-/* <tr>
-      <th>Site</th>
-      <th>Action</th>
-    </tr>
-    <tr>
-        <td>[*].Slack.ComZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ</td>
-        <td><input type="button" value="Remove"></td>
-    </tr> */
-
-// save button clicked, sync storage
-// Save it using the Chrome extension storage API.
-// chrome.storage.sync.set({'foo': 'hello', 'bar': 'hi'}, function() {
-//     console.log('Settings saved');
-//   });
-
-//   // Read it using the storage API
-//   chrome.storage.sync.get(['foo', 'bar'], function(items) {
-//     message('Settings retrieved', items);
-//   });
+chrome.storage.onChanged.addListener(() => {
+  getChromeStorageData();
+});

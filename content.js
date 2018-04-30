@@ -4,24 +4,25 @@ const body = document.getElementsByTagName('body');
 
 // pull config info
 let config;
-
-chrome.storage.sync.get(['status', 'targetType', 'siteWhiteList', 'siteBlackList'], (items) => {
-  config = items;
-  if (config === undefined ||
-    config.status === undefined ||
-    config.targetType === undefined ||
-    config.siteWhiteList === undefined ||
-    config.siteBlackList === undefined) {
-    config =
-      {
-        status: 'off',
-        targetType: 'blacklist',
-        siteWhiteList: [],
-        siteBlackList: [],
-      };
-  }
-});
-
+function getChromeStorageData() {
+  chrome.storage.sync.get(['status', 'targetType', 'siteWhiteList', 'siteBlackList'], (items) => {
+    config = items;
+    if (config === undefined ||
+      config.status === undefined ||
+      config.targetType === undefined ||
+      config.siteWhiteList === undefined ||
+      config.siteBlackList === undefined) {
+      config =
+        {
+          status: 'off',
+          targetType: 'blacklist',
+          siteWhiteList: [],
+          siteBlackList: [],
+        };
+    }
+  });
+}
+getChromeStorageData(); // call once on js load
 $(document).mouseenter(() => {
   // console.log(window.location.toString());
   body[0].style.display = null;
@@ -52,4 +53,8 @@ $(document).mouseleave(() => {
       body[0].style.display = 'none';
     }
   }
+});
+
+chrome.storage.onChanged.addListener(() => {
+  getChromeStorageData();
 });

@@ -7,7 +7,12 @@
 </head>
 
 <body>
-  <h1>Privacy Screen Options</h1>
+  <div class="header" id="myHeader" style="padding: 10px 10px;
+  background: #555;
+  color: #f1f1f1;">
+    <h1>PrivacyScreen Options</h1>
+  </div>
+  <br />
   <span>On/Off</span>
   <select id="status">
     <option value="on">On</option>
@@ -21,7 +26,7 @@
   <br />
   <br />
   <br />
-  <form id="addSiteForm" >
+  <form id="addSiteForm">
     <label>Add New Site To List. Privacy Screen will apply to any URL, that contains the entered value</label>
     <input type="text" name="newSiteField" id="newSiteField">
     <input type="submit" name="newSiteSubmit" id="newSiteSubmit">
@@ -42,9 +47,6 @@
       </tr>
     </tbody>
   </table>
-  <br />
-  <br />
-  <span>You Must Refresh open tabs for changes to take effect</span>
 </body>
 
 </html>
