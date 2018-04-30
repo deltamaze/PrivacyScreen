@@ -1,6 +1,7 @@
 /* global chrome document window  */
 
 let config;
+let listernersCreated = false;
 
 function save() {
   chrome.storage.sync.set(config, () => {
@@ -110,7 +111,10 @@ function getChromeStorageData() {
       chrome.storage.sync.set(config, () => {
       });
     }
-    updateSelectToSettings();
+    if (listernersCreated === false) {
+      updateSelectToSettings();
+      listernersCreated = true;
+    }
   });
 }
 getChromeStorageData(); // call once on js load

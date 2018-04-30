@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
   
-    "name": "Privacy Screen",
-    "description": "Black out screen while mouse not hovering over/not active window",
+    "name": "PrivacyScreen",
+    "description": "Hide HTML Body while mouse not hovering over window",
     "version": "1.0",
   
     "browser_action": {
