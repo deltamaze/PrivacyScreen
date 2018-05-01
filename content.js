@@ -1,6 +1,34 @@
 /* global document chrome window $ */
 const body = document.getElementsByTagName('body');
-// body[0].style.visibility = 'hidden';
+
+// create privacy screen modal
+const modal = document.createElement('div');
+modal.id = 'PrivacyScreenModal90901010';
+modal.className = 'modal';
+// display: none; /* Hidden by default */
+// background-color: rgba(0,0,0,0.4); /* Black w/ opacity */`;
+modal.style = `
+position: fixed; /* Stay in place */
+z-index: 100000; /* Sit on top */
+left: 0;
+top: 0;
+width: 1000%; /* Full width */
+height: 1000%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(255,255,255);`;
+modal.style.display = 'none';
+// modal.innerHTML = ` <!-- Modal content -->
+// <div class="modal-content" style="
+//   background-color: #fefefe;
+//   margin: 15% auto; /* 15% from the top and centered */
+//   padding: 20px;
+//   border: 1px solid #888;
+//   width: 80%; /* Could be more or less, depending on screen size */
+// ">
+//   <span class="close">&times;</span>
+//   <p>Some text in the Modal..</p>
+// </div>`;
+
 
 // pull config info
 let config;
@@ -25,7 +53,7 @@ function getChromeStorageData() {
 getChromeStorageData(); // call once on js load
 $(document).mouseenter(() => {
   // console.log(window.location.toString());
-  body[0].style.display = null;
+  modal.style.display = 'none';
 });
 
 $(document).mouseleave(() => {
@@ -46,14 +74,18 @@ $(document).mouseleave(() => {
 
     if (config.targetType === 'blacklist' && blackListFlagMatch === true) {
       // if url matches with any blacklist item. black out screen
-      body[0].style.display = 'none';
+      modal.style.display = null;
     }
     if (config.targetType === 'whitelist' && whiteListFlagMatch === false) {
       // if url does not match with any whitelist item. black out screen
-      body[0].style.display = 'none';
+      modal.style.display = null;
     }
   }
 });
+
+window.onload = () => {
+  body[0].appendChild(modal);
+};
 
 chrome.storage.onChanged.addListener(() => {
   getChromeStorageData();

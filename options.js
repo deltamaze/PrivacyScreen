@@ -86,10 +86,14 @@ function updateSelectToSettings() {
   selectTargetType.value = config.targetType;
   selectStatus.value = config.status;
   const addSiteForm = document.getElementById('addSiteForm');
-  addSiteForm.addEventListener('submit', (evt) => {
-    addToList();
-    evt.preventDefault();
-  });
+  if (listernersCreated === false) {
+    addSiteForm.addEventListener('submit', (evt) => {
+      addToList();
+      evt.preventDefault();
+    });
+    listernersCreated = true;
+  }
+
   populateTable();
 }
 
@@ -111,10 +115,7 @@ function getChromeStorageData() {
       chrome.storage.sync.set(config, () => {
       });
     }
-    if (listernersCreated === false) {
-      updateSelectToSettings();
-      listernersCreated = true;
-    }
+    updateSelectToSettings();
   });
 }
 getChromeStorageData(); // call once on js load
