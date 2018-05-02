@@ -55,10 +55,6 @@ function populateTable() {
   siteTbody.appendChild(trHeader);
 
   for (let i = 0; i < targetArray.length; i += 1) {
-    // tableRows += `<tr>
-    //                   <td>[*].Slack.ComXXXX</td>
-    //                   <td><input class="remBut" type="button" value="Remove" ></td>
-    //               </tr>`;
     const trDetail = document.createElement('tr');
     const tdLabel = document.createElement('td');
     const tdButton = document.createElement('td');
@@ -73,12 +69,6 @@ function populateTable() {
     siteTbody.appendChild(trDetail);
   }
 }
-
-
-// const elements = document.getElementsByClassName('remBut');
-//   elements.forEach(element => {
-//     createButton.addEventListener('click', function() { jstree_node_create(); });
-//   });
 
 function updateSelectToSettings() {
   const selectTargetType = document.querySelector('#targetType');
